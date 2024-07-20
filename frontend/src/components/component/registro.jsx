@@ -33,7 +33,7 @@ import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@
 export function Registro() {
   return (
     (<div className="flex flex-col min-h-screen">
-      <header className="bg-primary text-primary-foreground py-4 px-6">
+      <header className="bg-primary text-primary-foreground py-4 px-6 sticky top-0 z-50">
         <div className="container mx-auto flex items-center justify-between">
           <Link href="#" className="text-xl font-bold" prefetch={false}>
             Instituto Superior San Cristobal
@@ -44,32 +44,45 @@ export function Registro() {
         <section className="py-8 px-6">
           <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
             <div>
-              <h2 className="text-2xl font-bold mb-4">Próximos Exámenes</h2>
-              <div className="bg-card p-4 rounded-md shadow-sm">
-                <div className="flex items-center justify-between mb-2">
-                  <div className="text-lg font-medium">Ingeniería de Software</div>
-                  <div className="text-muted-foreground text-sm">15 de mayo de 2023</div>
-                </div>
-                <p className="text-muted-foreground">9:00 AM - 12:00 PM, Salón 201</p>
-                <Button variant="outline" className="mt-4">
-                  Registrarse
-                </Button>
+            <div>
+            <h2 className="text-xl font-bold mb-4">Información de los Exámenes</h2>
+            <div className="space-y-4">
+              <div>
+                <h3 className="text-lg font-bold">Fechas y Horarios</h3>
+                <p>Los exámenes finales se llevarán a cabo del 15 al 20 de junio.</p>
               </div>
-              <div className="bg-card p-4 rounded-md shadow-sm mt-4">
-                <div className="flex items-center justify-between mb-2">
-                  <div className="text-lg font-medium">Algoritmos y Estructuras de Datos</div>
-                  <div className="text-muted-foreground text-sm">5 de junio de 2023</div>
-                </div>
-                <p className="text-muted-foreground">2:00 PM - 5:00 PM, Salón 301</p>
-                <Button variant="outline" className="mt-4">
-                  Registrarse
-                </Button>
+              <div>
+                <h3 className="text-lg font-bold">Requisitos</h3>
+                <ul className="list-disc pl-6 space-y-2">
+                  <li>Presentarse con libreta (sin excepciónes).</li>
+                  <li>Vestir ropa adecuada.</li>
+                  <li>Para dar de baja una inscripción se la deberá solicitar 48hs antes del exámen.</li>
+                  <li>Ausentes sin justificativos pertinentes presentados en tiempo y forma equivale a un aplazo.</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-lg font-bold">Contacto</h3>
+                <p>Para más información, comunícate con Administración al correo correodelinstituto@email.com</p>
               </div>
             </div>
+          </div>
+        </div>
             <div>
               <h2 className="text-2xl font-bold mb-4">Registrarse para un Examen</h2>
               <form className="bg-card p-4 rounded-md shadow-sm">
                 <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="dni">DNI</Label>
+                    <Input id="dni" placeholder="Ingresa tu DNI sin puntos ni espacios" />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="lastName">Apellido</Label>
+                    <Input id="lastName" placeholder="Ingresa tu apellido" />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="firstName">Nombre</Label>
+                    <Input id="firstName" placeholder="Ingresa tu nombre" />
+                  </div>
                   <div>
                     <Label htmlFor="career">Carrera</Label>
                     <Select id="career">
@@ -172,8 +185,8 @@ export function Registro() {
                     <TableHead>Asignatura</TableHead>
                     <TableHead>Fecha</TableHead>
                     <TableHead>Hora</TableHead>
-                    <TableHead>Salón</TableHead>
-                    <TableHead>Acciones</TableHead>
+                    
+                    
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -181,28 +194,22 @@ export function Registro() {
                     <TableCell>Ingeniería de Software</TableCell>
                     <TableCell>15 de mayo de 2023</TableCell>
                     <TableCell>9:00 AM - 12:00 PM</TableCell>
-                    <TableCell>201</TableCell>
-                    <TableCell>
-                      <Button variant="outline">Registrarse</Button>
-                    </TableCell>
+                    
+                    
                   </TableRow>
                   <TableRow>
                     <TableCell>Algoritmos y Estructuras de Datos</TableCell>
                     <TableCell>5 de junio de 2023</TableCell>
                     <TableCell>2:00 PM - 5:00 PM</TableCell>
-                    <TableCell>301</TableCell>
-                    <TableCell>
-                      <Button variant="outline">Registrarse</Button>
-                    </TableCell>
+                    
+                    
                   </TableRow>
                   <TableRow>
                     <TableCell>Sistemas de Bases de Datos</TableCell>
                     <TableCell>10 de julio de 2023</TableCell>
                     <TableCell>10:00 AM - 1:00 PM</TableCell>
-                    <TableCell>401</TableCell>
-                    <TableCell>
-                      <Button variant="outline">Registrarse</Button>
-                    </TableCell>
+                    
+                    
                   </TableRow>
                 </TableBody>
               </Table>
@@ -219,7 +226,7 @@ export function Registro() {
                     <TableHead>Asignatura</TableHead>
                     <TableHead>Fecha</TableHead>
                     <TableHead>Hora</TableHead>
-                    <TableHead>Salón</TableHead>
+                    
                     <TableHead>Estado</TableHead>
                   </TableRow>
                 </TableHeader>
@@ -228,7 +235,7 @@ export function Registro() {
                     <TableCell>Ingeniería de Software</TableCell>
                     <TableCell>15 de mayo de 2023</TableCell>
                     <TableCell>9:00 AM - 12:00 PM</TableCell>
-                    <TableCell>201</TableCell>
+                    
                     <TableCell>
                       <div className="bg-green-500 text-green-50 px-2 py-1 rounded-md text-sm">Registrado</div>
                     </TableCell>
@@ -237,7 +244,7 @@ export function Registro() {
                     <TableCell>Algoritmos y Estructuras de Datos</TableCell>
                     <TableCell>5 de junio de 2023</TableCell>
                     <TableCell>2:00 PM - 5:00 PM</TableCell>
-                    <TableCell>301</TableCell>
+                    
                     <TableCell>
                       <div className="bg-yellow-500 text-yellow-50 px-2 py-1 rounded-md text-sm">Pendiente</div>
                     </TableCell>
