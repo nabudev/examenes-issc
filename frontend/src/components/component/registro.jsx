@@ -182,7 +182,7 @@ export function Registro() {
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead>Asignatura</TableHead>
+                    <TableHead>Materia</TableHead>
                     <TableHead>Fecha</TableHead>
                     <TableHead>Hora</TableHead>
                     
@@ -223,7 +223,7 @@ export function Registro() {
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead>Asignatura</TableHead>
+                    <TableHead>Materia</TableHead>
                     <TableHead>Fecha</TableHead>
                     <TableHead>Hora</TableHead>
                     
