@@ -97,7 +97,7 @@ export function Registro() {
                     </Select>
                   </div>
                   <div>
-                    <Label htmlFor="subject">Asignatura</Label>
+                    <Label htmlFor="subject">Materia</Label>
                     <Select id="subject">
                       <SelectTrigger>
                         <SelectValue placeholder="Seleccionar asignatura" />
