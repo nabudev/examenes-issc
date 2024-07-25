@@ -4,8 +4,8 @@ from .views import *
 
 #api versioning
 router= routers.DefaultRouter()
-router.register(r'alumno', AlumnoView, 'alumno')
+router.register(r'alumnos', AlumnoView, 'alumnos')
 
 urlpatterns = [
-    path("alumnos", include(router.urls))
+    path("alumnos/", include(router.urls))
 ]

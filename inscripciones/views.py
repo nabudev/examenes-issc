@@ -12,7 +12,7 @@ class LLamadoView(viewsets.ModelViewSet):
     
 class MesaView(viewsets.ModelViewSet):
     serializer_class= MesaSerializer
-    queryset= Mesa.object.all()
+    queryset= Mesa.objects.all()
     
 class InscripcionView(viewsets.ModelViewSet):
     serializer_class= InscripcionSerializer
