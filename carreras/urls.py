@@ -7,7 +7,7 @@ from .views import *
 router= routers.DefaultRouter()
 router.register(r'tecprof', TecProfView, 'tecprof')
 router.register(r'aniocarrera', AnioCarreraView, 'aniocarrera')
-router.register(r'carrera', CarreraView, 'carrera')
+router.register(r'carreras', CarreraView, 'carreras')
 
 urlpatterns = [
     path("carreras/", include(router.urls)),

@@ -29,6 +29,8 @@ import { Label } from "@/components/ui/label"
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select"
 import { Input } from "@/components/ui/input"
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table"
+import React, { useState, useEffect } from 'react';
+import {getAllAlumnos, getAllTecProf, getAllAnioCarrera, getAllCarreras, getAllMaterias, getAllLlamados, getAllMesas, getAllInscripciones} from '.../api/api';
 
 export function Registro() {
   return (
