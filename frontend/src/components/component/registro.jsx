@@ -149,7 +149,7 @@ export function Registro() {
                     <Select 
                       id="career" 
                       value={formData.career}
-                      onChange={e => setCarreraSeleccionada(e.target.value)}
+                      onValueChange={(value) => setFormData({ ...formData, career: value })}
                     >
                       <SelectTrigger>
                         <SelectValue placeholder="Seleccionar carrera" />
