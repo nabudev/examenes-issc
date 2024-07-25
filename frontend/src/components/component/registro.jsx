@@ -29,8 +29,8 @@ import { Label } from "@/components/ui/label"
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select"
 import { Input } from "@/components/ui/input"
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table"
-import React, { useState, useEffect } from 'react';
-import {getAllAlumnos, getAllTecProf, getAllAnioCarrera, getAllCarreras, getAllMaterias, getAllLlamados, getAllMesas, getAllInscripciones} from '.../api/api';
+/**import React, { useState, useEffect } from 'react';
+import {getAllAlumnos, getAllTecProf, getAllAnioCarrera, getAllCarreras, getAllMaterias, getAllLlamados, getAllMesas, getAllInscripciones} from '.../api/api';**/
 
 export function Registro() {
   return (
@@ -137,131 +137,7 @@ export function Registro() {
             </div>
           </div>
         </section>
-        <section className="py-8 px-6 bg-muted">
-          <div className="container mx-auto">
-            <h2 className="text-2xl font-bold mb-4">Calendario de Exámenes</h2>
-            <div className="bg-card p-4 rounded-md shadow-sm">
-              <div className="flex items-center justify-between mb-4">
-                <div className="flex items-center gap-2">
-                  <Select>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Seleccionar carrera" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="computer-science">Ciencias de la Computación</SelectItem>
-                      <SelectItem value="business-administration">Administración de Empresas</SelectItem>
-                      <SelectItem value="civil-engineering">Ingeniería Civil</SelectItem>
-                    </SelectContent>
-                  </Select>
-                  <Select>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Seleccionar asignatura" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="software-engineering">Ingeniería de Software</SelectItem>
-                      <SelectItem value="algorithms">Algoritmos y Estructuras de Datos</SelectItem>
-                      <SelectItem value="database-systems">Sistemas de Bases de Datos</SelectItem>
-                    </SelectContent>
-                  </Select>
-                  <Select>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Seleccionar año" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="1">1er Año</SelectItem>
-                      <SelectItem value="2">2do Año</SelectItem>
-                      <SelectItem value="3">3er Año</SelectItem>
-                      <SelectItem value="4">4to Año</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-                <div>
-                  <Input
-                    placeholder="Buscar exámenes..."
-                    className="bg-background text-foreground" />
-                </div>
-              </div>
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Materia</TableHead>
-                    <TableHead>Fecha</TableHead>
-                    <TableHead>Hora</TableHead>
-                    
-                    
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  <TableRow>
-                    <TableCell>Ingeniería de Software</TableCell>
-                    <TableCell>15 de mayo de 2023</TableCell>
-                    <TableCell>9:00 AM - 12:00 PM</TableCell>
-                    
-                    
-                  </TableRow>
-                  <TableRow>
-                    <TableCell>Algoritmos y Estructuras de Datos</TableCell>
-                    <TableCell>5 de junio de 2023</TableCell>
-                    <TableCell>2:00 PM - 5:00 PM</TableCell>
-                    
-                    
-                  </TableRow>
-                  <TableRow>
-                    <TableCell>Sistemas de Bases de Datos</TableCell>
-                    <TableCell>10 de julio de 2023</TableCell>
-                    <TableCell>10:00 AM - 1:00 PM</TableCell>
-                    
-                    
-                  </TableRow>
-                </TableBody>
-              </Table>
-            </div>
-          </div>
-        </section>
-        <section className="py-8 px-6">
-          <div className="container mx-auto">
-            <h2 className="text-2xl font-bold mb-4">Mis Registros</h2>
-            <div className="bg-card p-4 rounded-md shadow-sm">
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Materia</TableHead>
-                    <TableHead>Fecha</TableHead>
-                    <TableHead>Hora</TableHead>
-                    
-                    <TableHead>Estado</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  <TableRow>
-                    <TableCell>Ingeniería de Software</TableCell>
-                    <TableCell>15 de mayo de 2023</TableCell>
-                    <TableCell>9:00 AM - 12:00 PM</TableCell>
-                    
-                    <TableCell>
-                      <div className="bg-green-500 text-green-50 px-2 py-1 rounded-md text-sm">Registrado</div>
-                    </TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell>Algoritmos y Estructuras de Datos</TableCell>
-                    <TableCell>5 de junio de 2023</TableCell>
-                    <TableCell>2:00 PM - 5:00 PM</TableCell>
-                    
-                    <TableCell>
-                      <div className="bg-yellow-500 text-yellow-50 px-2 py-1 rounded-md text-sm">Pendiente</div>
-                    </TableCell>
-                  </TableRow>
-                </TableBody>
-              </Table>
-            </div>
-          </div>
-        </section>
       </main>
-      <footer className="bg-primary text-primary-foreground py-4">
-        <div className="container mx-auto text-center text-sm">
-          &copy; Plataforma Institucional San Cristobal. Todos los derechos reservados.
-        </div>
-      </footer>
     </div>)
   );
 }
