@@ -1,5 +1,5 @@
 import axios from 'axios'
-
+// Para obtener todos los alumnos
 export const getAllAlumnos= () => {
     return axios.get('http://localhost:8000/alumnos/alumnos/alumnos/')
 }

@@ -5,7 +5,6 @@ from carreras.models import Carrera
 class Materia(models.Model):
     nombre=models.CharField(max_length=60)
     carrera= models.ForeignKey(Carrera, on_delete=models.CASCADE)
-    
     def __str__(self):
         return f'{self.nombre} : {self.carrera}'
     
