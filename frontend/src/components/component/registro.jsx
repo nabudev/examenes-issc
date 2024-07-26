@@ -14,19 +14,6 @@ export function Registro() {
   const [llamados, setLlamados] = useState([]);
   const [carreras, setCarreras] = useState([]);
 
-  const [carreraSeleccionada, setCarreraSeleccionada] = useState('');
-  const [anioSeleccionado, setAnioSeleccionado] = useState('');
-  const [materiasFiltradas, setMateriasFiltradas] = useState([]);
-  const [formData, setFormData] = useState({
-    dni: '',
-    lastName: '',
-    firstName: '',
-    career: '',
-    subject: '',
-    year: '',
-    examDate: ''
-  });
-
   useEffect(() => {
     async function loadMaterias(){
       const res= await getAllMaterias();
@@ -67,16 +54,6 @@ export function Registro() {
     loadLlamados();
   }, []);
 
-    // Filtrar materias en función de la carrera y año seleccionados
-    useEffect(() => {
-      if (carreraSeleccionada && anioSeleccionado) {
-        const filteredMaterias = materias.filter(materia =>
-          materia.carrera === carreraSeleccionada && materia.anio === anioSeleccionado
-        );
-        setMateriasFiltradas(filteredMaterias);
-      }
-    }, [carreraSeleccionada, anioSeleccionado, materias]);
-
   return (
     (<div className="flex flex-col min-h-screen">
       <header className="bg-primary text-primary-foreground py-4 px-6 sticky top-0 z-50">
@@ -84,6 +61,14 @@ export function Registro() {
           <Link href="#" className="text-xl font-bold" prefetch={false}>
             Instituto Superior San Cristobal
           </Link>
+          <nav className="flex items-center gap-4">
+            <Link href="#" className="hover:underline" prefetch={false}>
+              Calendario de examenes
+            </Link>
+            <Link href="#" className="hover:underline" prefetch={false}>
+              Mis Registros
+            </Link>
+          </nav>
         </div>
       </header>
       <main className="flex-1 bg-background">
@@ -119,44 +104,25 @@ export function Registro() {
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <Label htmlFor="dni">DNI</Label>
-                    <Input 
-                      id="dni" 
-                      placeholder="Ingresa tu DNI sin puntos ni espacios" 
-                      value={formData.dni}
-                      onChange={e => setFormData({ ...formData, dni: e.target.value })}
-                    />
+                    <Input id="dni" placeholder="Ingresa tu DNI sin puntos ni espacios"/>
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="lastName">Apellido</Label>
-                    <Input 
-                      id="lastName" 
-                      placeholder="Ingresa tu apellido" 
-                      value={formData.lastName}
-                      onChange={e => setFormData({ ...formData, lastName: e.target.value })}
-                    />
+                    <Input id="lastName" placeholder="Ingresa tu apellido"/>
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="firstName">Nombre</Label>
-                    <Input 
-                      id="firstName" 
-                      placeholder="Ingresa tu nombre" 
-                      value={formData.firstName}
-                      onChange={e => setFormData({ ...formData, firstName: e.target.value })}
-                    />
+                    <Input id="firstName" placeholder="Ingresa tu nombre"/>
                   </div>
                   <div>
                     <Label htmlFor="career">Carrera</Label>
-                    <Select 
-                      id="career" 
-                      value={formData.career}
-                      onValueChange={(value) => setFormData({ ...formData, career: value })}
-                    >
+                    <Select id="career">
                       <SelectTrigger>
-                        <SelectValue placeholder="Seleccionar carrera" />
+                        <SelectValue placeholder="Seleccionar carrera"/>
                       </SelectTrigger>
                       <SelectContent>
-                      {tecprof.map(tecprof => (
-                          <SelectItem key={tecprof.id} value={tecprof.id}>
+                        {tecprof.map((tecprof) => (
+                          <SelectItem key={tecprof.id} value={tecprof.nombre}>
                             {tecprof.nombre}
                           </SelectItem>
                         ))}
@@ -165,17 +131,13 @@ export function Registro() {
                   </div>
                   <div>
                     <Label htmlFor="subject">Materia</Label>
-                    <Select 
-                      id="subject"
-                      value={formData.subject}
-                      onChange={e => setFormData({ ...formData, subject: e.target.value })}
-                    >
+                    <Select id="subject">
                       <SelectTrigger>
                         <SelectValue placeholder="Seleccionar asignatura" />
                       </SelectTrigger>
                       <SelectContent>
-                      {materiasFiltradas.map(materia => (
-                          <SelectItem key={materia.id} value={materia.id}>
+                        {materias.map((materia) => (
+                          <SelectItem key={materia.id} value={materia.nombre}>
                             {materia.nombre}
                           </SelectItem>
                         ))}
@@ -184,18 +146,14 @@ export function Registro() {
                   </div>
                   <div>
                     <Label htmlFor="year">Año</Label>
-                    <Select 
-                      id="year" 
-                      value={formData.year}
-                      onChange={e => setAnioSeleccionado(e.target.value)}
-                    >
+                    <Select id="year">
                       <SelectTrigger>
                         <SelectValue placeholder="Seleccionar año" />
                       </SelectTrigger>
                       <SelectContent>
-                      {aniosCarrera.map(anio => (
-                          <SelectItem key={anio.id} value={anio.id}>
-                            {anio.nombre}
+                        {aniosCarrera.map((anio) => (
+                          <SelectItem key={anio.id} value={anio.anio}>
+                            {anio.anio}
                           </SelectItem>
                         ))}
                       </SelectContent>
@@ -203,12 +161,7 @@ export function Registro() {
                   </div>
                   <div>
                     <Label htmlFor="examDate">Fecha de Examen</Label>
-                    <Input 
-                      id="examDate" 
-                      type="date" 
-                      value={formData.examDate}
-                      onChange={e => setFormData({ ...formData, examDate: e.target.value })}
-                    />
+                    <Input id="examDate" type="date"/>
                   </div>
                 </div>
                 <Button type="submit" className="mt-4 w-full">
