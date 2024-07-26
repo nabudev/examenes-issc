@@ -9,10 +9,11 @@ class Materia(models.Model):
         return f'{self.nombre} : {self.carrera}'
     
 class Llamado(models.Model):
-    fecha = models.DateTimeField()
+    fecha = models.DateField()
+    hora= models.TimeField(null=False, blank=False)
     
     def __str__(self):
-        return f'Fecha y hora del examen: {self.fecha}'
+        return f'Fecha y hora del examen: {self.fecha} {self.hora}'
     
 #Entidad que surge a partir de la relacion N:M de materia y llamado
 class Mesa(models.Model):

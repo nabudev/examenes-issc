@@ -1,10 +1,40 @@
+"use client";
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select"
 import { Input } from "@/components/ui/input"
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table"
-/**import React, { useState, useEffect } from 'react';
-import {getAllAlumnos, getAllTecProf, getAllAnioCarrera, getAllCarreras, getAllMaterias, getAllLlamados, getAllMesas, getAllInscripciones} from '.../api/api';**/
+import React, { useState, useEffect } from 'react';
+import {getAllMesas, getAllLlamados, getAllMaterias} from '@/api/api.js';
 
 export function Calendario() {
+
+  const [mesas, setMesas] = useState([]);
+  const [materias, setMaterias] = useState([]);
+  const [llamados, setLlamados] = useState([]);
+
+  useEffect(() => {
+    async function loadMesas() {
+      const res = await getAllMesas();
+      setMesas(res.data);
+    }
+    loadMesas();
+  }, []);
+
+  useEffect(() => {
+    async function loadMaterias(){
+      const res= await getAllMaterias();
+      setMaterias(res.data);
+    }
+    loadMaterias();
+  }, []);
+
+  useEffect(() => {
+    async function loadLlamados() {
+      const res = await getAllLlamados();
+      setLlamados(res.data);
+    }
+    loadLlamados();
+  }, []);
+
   return (
     <section className="py-8 px-6 bg-muted">
           <div className="container mx-auto">
@@ -14,7 +44,7 @@ export function Calendario() {
                 <div className="flex items-center gap-2">
                   <Select>
                     <SelectTrigger>
-                      <SelectValue placeholder="Seleccionar carrera" />
+                      <SelectValue placeholder="Carrera" />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="computer-science">Ciencias de la Computación</SelectItem>
@@ -24,7 +54,7 @@ export function Calendario() {
                   </Select>
                   <Select>
                     <SelectTrigger>
-                      <SelectValue placeholder="Seleccionar asignatura" />
+                      <SelectValue placeholder="Materia" />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="software-engineering">Ingeniería de Software</SelectItem>
@@ -56,31 +86,25 @@ export function Calendario() {
                     <TableHead>Materia</TableHead>
                     <TableHead>Fecha</TableHead>
                     <TableHead>Hora</TableHead>
-                    
-                    
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   <TableRow>
-                    <TableCell>Ingeniería de Software</TableCell>
-                    <TableCell>15 de mayo de 2023</TableCell>
-                    <TableCell>9:00 AM - 12:00 PM</TableCell>
-                    
-                    
-                  </TableRow>
-                  <TableRow>
-                    <TableCell>Algoritmos y Estructuras de Datos</TableCell>
-                    <TableCell>5 de junio de 2023</TableCell>
-                    <TableCell>2:00 PM - 5:00 PM</TableCell>
-                    
-                    
-                  </TableRow>
-                  <TableRow>
-                    <TableCell>Sistemas de Bases de Datos</TableCell>
-                    <TableCell>10 de julio de 2023</TableCell>
-                    <TableCell>10:00 AM - 1:00 PM</TableCell>
-                    
-                    
+                    {materias.map((materias)=> (
+                      <TableCell key={materias.id} value={materias.nombre}>
+                        {materias.nombre}
+                      </TableCell>
+                    ))}
+                      {llamados.map((llamados)=> (
+                      <TableCell key={llamados.id} value={llamados.fecha}>
+                        {llamados.fecha}
+                      </TableCell>
+                    ))}
+                      {llamados.map((llamados)=> (
+                      <TableCell key={llamados.id} value={llamados.hora}>
+                        {llamados.hora}
+                      </TableCell>
+                    ))}
                   </TableRow>
                 </TableBody>
               </Table>
