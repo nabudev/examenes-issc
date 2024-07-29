@@ -1,8 +1,29 @@
+"use client";
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table"
-/**import React, { useState, useEffect } from 'react';
-import {getAllAlumnos, getAllTecProf, getAllAnioCarrera, getAllCarreras, getAllMaterias, getAllLlamados, getAllMesas, getAllInscripciones} from '.../api/api';**/
+import React, { useState, useEffect } from 'react';
+import {getAllInscripciones} from '@/api/api.js';
 
 export function MisRegistros() {
+
+  const [inscripciones, setInscripciones] = useState([]);
+
+  useEffect(() => {
+    async function loadInscripciones(){
+      const res= await getAllInscripciones();
+      setInscripciones(res.data);
+    }
+    loadInscripciones();
+  }, []);
+
+  const formatTime = (timeString) => {
+    return timeString.slice(0, 5); // Devuelve los primeros 5 caracteres, por ejemplo, "14:00"
+  };
+
+  const formatDate = (dateString) => {
+    const [year, month, day] = dateString.split('-');
+    return `${day}-${month}-${year}`; // Devuelve la fecha en formato "DD-MM-YYYY"
+  };
+
   return (
     <section className="py-8 px-6">
     <div className="container mx-auto">
@@ -14,30 +35,17 @@ export function MisRegistros() {
               <TableHead>Materia</TableHead>
               <TableHead>Fecha</TableHead>
               <TableHead>Hora</TableHead>
-              
-              <TableHead>Estado</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
-            <TableRow>
-              <TableCell>Ingeniería de Software</TableCell>
-              <TableCell>15 de mayo de 2023</TableCell>
-              <TableCell>9:00 AM - 12:00 PM</TableCell>
-              
-              <TableCell>
-                <div className="bg-green-500 text-green-50 px-2 py-1 rounded-md text-sm">Registrado</div>
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>Algoritmos y Estructuras de Datos</TableCell>
-              <TableCell>5 de junio de 2023</TableCell>
-              <TableCell>2:00 PM - 5:00 PM</TableCell>
-              
-              <TableCell>
-                <div className="bg-yellow-500 text-yellow-50 px-2 py-1 rounded-md text-sm">Pendiente</div>
-              </TableCell>
-            </TableRow>
-          </TableBody>
+                  {inscripciones.map((inscripcion) => (
+                    <TableRow key={inscripcion.id}>
+                      <TableCell>{inscripcion.mesa.materia.nombre}</TableCell>
+                      <TableCell>{formatDate(inscripcion.mesa.llamado.fecha)}</TableCell>
+                      <TableCell>{formatTime(inscripcion.mesa.llamado.hora)}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
         </Table>
       </div>
     </div>

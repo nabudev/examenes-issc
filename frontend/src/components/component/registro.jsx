@@ -12,9 +12,7 @@ export function Registro() {
   const [materias, setMaterias] = useState([]);
   const [tecprof, setTecProf] = useState([]);
   const [aniosCarrera, setAniosCarrera] = useState([]);
-  const {register, handleSubmit, formState: {
-    errors
-  }} = useForm();
+  const {register, handleSubmit} = useForm();
 
   const onSubmit= handleSubmit(async data => {
     const res= await createInscripcion(data)
@@ -103,15 +101,26 @@ export function Registro() {
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="lastName">Apellido</Label>
-                    <Input id="lastName" placeholder="Ingresa tu apellido"/>
+                    <Input 
+                      id="lastName" 
+                      placeholder="Ingresa tu apellido"
+                      {...register("lastName", {required: true})}
+                    />
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="firstName">Nombre</Label>
-                    <Input id="firstName" placeholder="Ingresa tu nombre"/>
+                    <Input 
+                      id="firstName" 
+                      placeholder="Ingresa tu nombre"
+                      {...register("firstName", {required: true})}
+                    />
                   </div>
                   <div>
                     <Label htmlFor="career">Carrera</Label>
-                    <Select id="career">
+                    <Select 
+                      id="career"
+                      {...register("career", {required: true})}
+                    >
                       <SelectTrigger>
                         <SelectValue placeholder="Seleccionar carrera"/>
                       </SelectTrigger>
@@ -126,7 +135,10 @@ export function Registro() {
                   </div>
                   <div>
                     <Label htmlFor="subject">Materia</Label>
-                    <Select id="subject">
+                    <Select 
+                      id="subject"
+                      {...register("subject", {required: true})}
+                    >
                       <SelectTrigger>
                         <SelectValue placeholder="Seleccionar asignatura" />
                       </SelectTrigger>
@@ -141,7 +153,10 @@ export function Registro() {
                   </div>
                   <div>
                     <Label htmlFor="year">Año</Label>
-                    <Select id="year">
+                    <Select 
+                      id="year"
+                      {...register("year", {required: true})}
+                    >
                       <SelectTrigger>
                         <SelectValue placeholder="Seleccionar año" />
                       </SelectTrigger>
@@ -156,7 +171,11 @@ export function Registro() {
                   </div>
                   <div>
                     <Label htmlFor="examDate">Fecha de Examen</Label>
-                    <Input id="examDate" type="date"/>
+                    <Input 
+                      id="examDate" 
+                      type="date"
+                      {...register("examDate", {required: true})}
+                    />
                   </div>
                 </div>
                 <Button type="submit" className="mt-4 w-full">
@@ -209,3 +228,5 @@ function XIcon(props) {
     </svg>)
   );
 }
+
+export default Registro;
