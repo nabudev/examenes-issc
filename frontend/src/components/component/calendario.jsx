@@ -18,7 +18,14 @@ export function Calendario() {
     loadMesas();
   }, []);
 
+  const formatTime = (timeString) => {
+    return timeString.slice(0, 5); // Devuelve los primeros 5 caracteres, por ejemplo, "14:00"
+  };
 
+  const formatDate = (dateString) => {
+    const [year, month, day] = dateString.split('-');
+    return `${day}-${month}-${year}`; // Devuelve la fecha en formato "DD-MM-YYYY"
+  };
 
   return (
     <section className="py-8 px-6 bg-muted">
@@ -77,8 +84,8 @@ export function Calendario() {
                   {mesas.map((mesa) => (
                     <TableRow key={mesa.id}>
                       <TableCell>{mesa.materia.nombre}</TableCell>
-                      <TableCell>{mesa.llamado.fecha}</TableCell>
-                      <TableCell>{mesa.llamado.hora}</TableCell>
+                      <TableCell>{formatDate(mesa.llamado.fecha)}</TableCell>
+                      <TableCell>{formatTime(mesa.llamado.hora)}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
