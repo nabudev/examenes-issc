@@ -5,14 +5,21 @@ import { Label } from "@/components/ui/label"
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select"
 import { Input } from "@/components/ui/input"
 import React, { useEffect, useState } from 'react';
-import {getAllMaterias, getAllTecProf, getAllAnioCarrera, getAllLlamados, getAllCarreras} from '@/api/api.js';
+import {getAllMaterias, getAllTecProf, getAllAnioCarrera, createInscripcion} from '@/api/api.js';
+import { useForm } from "react-hook-form";
 
 export function Registro() {
   const [materias, setMaterias] = useState([]);
   const [tecprof, setTecProf] = useState([]);
   const [aniosCarrera, setAniosCarrera] = useState([]);
-  const [llamados, setLlamados] = useState([]);
-  const [carreras, setCarreras] = useState([]);
+  const {register, handleSubmit, formState: {
+    errors
+  }} = useForm();
+
+  const onSubmit= handleSubmit(async data => {
+    const res= await createInscripcion(data)
+    console.log(res)
+  })
 
   useEffect(() => {
     async function loadMaterias(){
@@ -36,22 +43,6 @@ export function Registro() {
       setAniosCarrera(res.data);
     }
     loadAnioCarrera();
-  }, []);
-
-  useEffect(() => {
-    async function loadCarrera() {
-      const res = await getAllCarreras();
-      setCarreras(res.data);
-    }
-    loadCarrera();
-  }, []);
-
-  useEffect(() => {
-    async function loadLlamados() {
-      const res = await getAllLlamados();
-      setLlamados(res.data);
-    }
-    loadLlamados();
   }, []);
 
   return (
@@ -100,11 +91,15 @@ export function Registro() {
         </div>
             <div>
               <h2 className="text-2xl font-bold mb-4">Registrarse para un Examen</h2>
-              <form className="bg-card p-4 rounded-md shadow-sm">
+              <form className="bg-card p-4 rounded-md shadow-sm" onSubmit={onSubmit}>
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <Label htmlFor="dni">DNI</Label>
-                    <Input id="dni" placeholder="Ingresa tu DNI sin puntos ni espacios"/>
+                    <Input 
+                      id="dni"
+                      placeholder="Ingresa tu DNI sin puntos ni espacios"
+                      {...register("dni", {required: true})}
+                    />
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="lastName">Apellido</Label>

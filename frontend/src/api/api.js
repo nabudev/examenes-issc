@@ -1,4 +1,9 @@
 import axios from 'axios'
+
+const inscripcionesApi= axios.create({
+    baseURL: "http://localhost:8000/inscripciones/inscripciones/inscripciones/",
+})
+
 // Para obtener todos los alumnos
 export const getAllAlumnos= () => {
     return axios.get('http://localhost:8000/alumnos/alumnos/alumnos/')
@@ -38,3 +43,4 @@ export const getAllMesas = () => {
 export const getAllInscripciones = () => {
     return axios.get('http://localhost:8000/inscripciones/inscripciones/inscripciones/')
 }
+export const createInscripcion= (inscripcion) => inscripcionesApi.post("/", inscripcion);
