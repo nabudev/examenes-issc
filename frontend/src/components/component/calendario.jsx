@@ -3,13 +3,12 @@ import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@
 import { Input } from "@/components/ui/input"
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table"
 import React, { useState, useEffect } from 'react';
-import {getAllMesas, getAllLlamados, getAllMaterias} from '@/api/api.js';
+import {getAllMesas} from '@/api/api.js';
 
 export function Calendario() {
 
   const [mesas, setMesas] = useState([]);
-  const [materias, setMaterias] = useState([]);
-  const [llamados, setLlamados] = useState([]);
+  
 
   useEffect(() => {
     async function loadMesas() {
@@ -19,21 +18,7 @@ export function Calendario() {
     loadMesas();
   }, []);
 
-  useEffect(() => {
-    async function loadMaterias(){
-      const res= await getAllMaterias();
-      setMaterias(res.data);
-    }
-    loadMaterias();
-  }, []);
 
-  useEffect(() => {
-    async function loadLlamados() {
-      const res = await getAllLlamados();
-      setLlamados(res.data);
-    }
-    loadLlamados();
-  }, []);
 
   return (
     <section className="py-8 px-6 bg-muted">
@@ -89,23 +74,13 @@ export function Calendario() {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  <TableRow>
-                    {materias.map((materias)=> (
-                      <TableCell key={materias.id} value={materias.nombre}>
-                        {materias.nombre}
-                      </TableCell>
-                    ))}
-                      {llamados.map((llamados)=> (
-                      <TableCell key={llamados.id} value={llamados.fecha}>
-                        {llamados.fecha}
-                      </TableCell>
-                    ))}
-                      {llamados.map((llamados)=> (
-                      <TableCell key={llamados.id} value={llamados.hora}>
-                        {llamados.hora}
-                      </TableCell>
-                    ))}
-                  </TableRow>
+                  {mesas.map((mesa) => (
+                    <TableRow key={mesa.id}>
+                      <TableCell>{mesa.materia.nombre}</TableCell>
+                      <TableCell>{mesa.llamado.fecha}</TableCell>
+                      <TableCell>{mesa.llamado.hora}</TableCell>
+                    </TableRow>
+                  ))}
                 </TableBody>
               </Table>
             </div>
@@ -152,3 +127,5 @@ function XIcon(props) {
     </svg>)
   );
 }
+
+export default Calendario;

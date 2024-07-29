@@ -12,6 +12,8 @@ class AnioCarreraSerializer(serializers.ModelSerializer):
         fields= '__all__'
 
 class CarreraSerializer(serializers.ModelSerializer):
+    tecprof= TecProfSerializer()
+    anio= AnioCarreraSerializer()
     class Meta:
         model= Carrera
         fields= '__all__'

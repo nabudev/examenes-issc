@@ -7,7 +7,7 @@ class MateriaView(viewsets.ModelViewSet):
     queryset= Materia.objects.all()
     
 class LLamadoView(viewsets.ModelViewSet):
-    serializer_class= LLamadoSerializer
+    serializer_class= LlamadoSerializer
     queryset= Llamado.objects.all()
     
 class MesaView(viewsets.ModelViewSet):
