@@ -5,13 +5,14 @@ import { Label } from "@/components/ui/label"
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select"
 import { Input } from "@/components/ui/input"
 import React, { useEffect, useState } from 'react';
-import {getAllMaterias, getAllTecProf, getAllAnioCarrera, createInscripcion} from '@/api/api.js';
+import {getAllTecProf, getAllAnioCarrera, getAllMesas, createInscripcion} from '@/api/api.js';
 import { useForm } from "react-hook-form";
 
 export function Registro() {
-  const [materias, setMaterias] = useState([]);
+  
   const [tecprof, setTecProf] = useState([]);
   const [aniosCarrera, setAniosCarrera] = useState([]);
+  const [mesas, setMesas] = useState([]);
   const {register, handleSubmit} = useForm();
 
   const onSubmit= handleSubmit(async data => {
@@ -20,11 +21,11 @@ export function Registro() {
   })
 
   useEffect(() => {
-    async function loadMaterias(){
-      const res= await getAllMaterias();
-      setMaterias(res.data);
+    async function loadMesas(){
+      const res= await getAllMesas();
+      setMesas(res.data);
     }
-    loadMaterias();
+    loadMesas();
   }, []);
 
   useEffect(() => {
@@ -100,9 +101,9 @@ export function Registro() {
                     />
                   </div>
                   <div>
-                    <Label htmlFor="career">Carrera</Label>
+                    <Label htmlFor="carrera">Carrera</Label>
                     <Select 
-                      id="career"
+                      id="carrera"
                     >
                       <SelectTrigger>
                         <SelectValue placeholder="Seleccionar carrera"/>
@@ -117,27 +118,26 @@ export function Registro() {
                     </Select>
                   </div>
                   <div>
-                  <Label htmlFor="subject">Materia</Label>
+                  <Label htmlFor="materia">Materia</Label>
                     <Select 
-                      id="subject"
-                      {...register("subject", {required: true})}
+                      id="materia"
                     >
                       <SelectTrigger>
-                        <SelectValue placeholder="Seleccionar asignatura" />
+                        <SelectValue placeholder="Seleccionar materia" />
                       </SelectTrigger>
                       <SelectContent>
-                        {materias.map((materia) => (
-                          <SelectItem key={materia.id} value={materia.nombre}>
-                            {materia.nombre}
+                        {mesas.map((mesa) => (
+                          <SelectItem key={mesa.id} value={mesa.materia.nombre}>
+                            {mesa.materia.nombre}
                           </SelectItem>
                         ))}
                       </SelectContent>
                     </Select>
                   </div>
                   <div>
-                    <Label htmlFor="year">Año</Label>
+                    <Label htmlFor="anio">Año</Label>
                     <Select 
-                      id="year"
+                      id="anio"
                     >
                       <SelectTrigger>
                         <SelectValue placeholder="Seleccionar año" />
@@ -152,11 +152,11 @@ export function Registro() {
                     </Select>
                   </div>
                   <div>
-                    <Label htmlFor="examDate">Fecha de Examen</Label>
+                    <Label htmlFor="mesa">Fecha de Examen</Label>
                     <Input 
-                      id="examDate" 
+                      id="mesa" 
                       type="date"
-                      {...register("examDate", {required: true})}
+                      {...register("mesa", {required: true})}
                     />
                   </div>
                 </div>
