@@ -28,7 +28,7 @@ export function Calendario() {
   };
 
   return (
-    <section className="py-8 px-6 bg-muted">
+    <section id= "mi-calendario" className="py-8 px-6 bg-muted">
           <div className="container mx-auto">
             <h2 className="text-2xl font-bold mb-4">Calendario de Exámenes</h2>
             <div className="bg-card p-4 rounded-md shadow-sm">
