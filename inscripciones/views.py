@@ -1,6 +1,7 @@
 from rest_framework import viewsets
 from .serializer import *
 from .models import *
+from alumnos.serializer import AlumnoSerializer
 # Create your views here.
 class MateriaView(viewsets.ModelViewSet):
     serializer_class= MateriaSerializer
