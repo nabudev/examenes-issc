@@ -99,27 +99,10 @@ export function Registro() {
                       {...register("dni", {required: true})}
                     />
                   </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="lastName">Apellido</Label>
-                    <Input 
-                      id="lastName" 
-                      placeholder="Ingresa tu apellido"
-                      {...register("lastName", {required: true})}
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="firstName">Nombre</Label>
-                    <Input 
-                      id="firstName" 
-                      placeholder="Ingresa tu nombre"
-                      {...register("firstName", {required: true})}
-                    />
-                  </div>
                   <div>
                     <Label htmlFor="career">Carrera</Label>
                     <Select 
                       id="career"
-                      {...register("career", {required: true})}
                     >
                       <SelectTrigger>
                         <SelectValue placeholder="Seleccionar carrera"/>
@@ -134,7 +117,7 @@ export function Registro() {
                     </Select>
                   </div>
                   <div>
-                    <Label htmlFor="subject">Materia</Label>
+                  <Label htmlFor="subject">Materia</Label>
                     <Select 
                       id="subject"
                       {...register("subject", {required: true})}
@@ -155,7 +138,6 @@ export function Registro() {
                     <Label htmlFor="year">Año</Label>
                     <Select 
                       id="year"
-                      {...register("year", {required: true})}
                     >
                       <SelectTrigger>
                         <SelectValue placeholder="Seleccionar año" />
