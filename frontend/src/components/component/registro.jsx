@@ -2,16 +2,12 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
-import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select"
 import { Input } from "@/components/ui/input"
 import React, { useEffect, useState } from 'react';
-import {getAllTecProf, getAllAnioCarrera, getAllMesas, createInscripcion} from '@/api/api.js';
+import {getAllMesas, getAllCarreras, createInscripcion} from '@/api/api.js';
 import { useForm } from "react-hook-form";
 
 export function Registro() {
-  
-  const [tecprof, setTecProf] = useState([]);
-  const [aniosCarrera, setAniosCarrera] = useState([]);
   const [mesas, setMesas] = useState([]);
   const {register, handleSubmit} = useForm();
 
@@ -26,22 +22,6 @@ export function Registro() {
       setMesas(res.data);
     }
     loadMesas();
-  }, []);
-
-  useEffect(() => {
-    async function loadTecProf() {
-      const res = await getAllTecProf();
-      setTecProf(res.data);
-    }
-    loadTecProf();
-  }, []);
-
-  useEffect(() => {
-    async function loadAnioCarrera() {
-      const res = await getAllAnioCarrera();
-      setAniosCarrera(res.data);
-    }
-    loadAnioCarrera();
   }, []);
 
   return (
@@ -90,7 +70,7 @@ export function Registro() {
         </div>
             <div>
               <h2 className="text-2xl font-bold mb-4">Registrarse para un Examen</h2>
-              <form className="bg-card p-4 rounded-md shadow-sm" onSubmit={onSubmit}>
+              <form className="bg-card p-4 rounded-md shadow-sm" onSubmit={handleSubmit(onSubmit)}>
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <Label htmlFor="dni">DNI</Label>
@@ -101,64 +81,20 @@ export function Registro() {
                     />
                   </div>
                   <div>
-                    <Label htmlFor="carrera">Carrera</Label>
-                    <Select 
-                      id="carrera"
-                    >
-                      <SelectTrigger>
-                        <SelectValue placeholder="Seleccionar carrera"/>
-                      </SelectTrigger>
-                      <SelectContent>
-                        {tecprof.map((tecprof) => (
-                          <SelectItem key={tecprof.id} value={tecprof.nombre}>
-                            {tecprof.nombre}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
                   </div>
                   <div>
-                  <Label htmlFor="materia">Materia</Label>
-                    <Select 
-                      id="materia"
-                    >
-                      <SelectTrigger>
-                        <SelectValue placeholder="Seleccionar materia" />
-                      </SelectTrigger>
-                      <SelectContent>
+                    <Label htmlFor="mesa">Selecciona una Mesa</Label>
+                    <select
+                      className="block w-full px-3 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" 
+                      {...register("mesa", { required: true })}>
                         {mesas.map((mesa) => (
-                          <SelectItem key={mesa.id} value={mesa.materia.nombre}>
-                            {mesa.materia.nombre}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
+                          <option key={mesa.id} value={mesa.id}>
+                            {mesa.materia.nombre}- {mesa.llamado.fecha} - {mesa.llamado.hora}
+                          </option>
+                          ))}
+                    </select>
                   </div>
-                  <div>
-                    <Label htmlFor="anio">Año</Label>
-                    <Select 
-                      id="anio"
-                    >
-                      <SelectTrigger>
-                        <SelectValue placeholder="Seleccionar año" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {aniosCarrera.map((anio) => (
-                          <SelectItem key={anio.id} value={anio.anio}>
-                            {anio.anio}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  <div>
-                    <Label htmlFor="mesa">Fecha de Examen</Label>
-                    <Input 
-                      id="mesa" 
-                      type="date"
-                      {...register("mesa", {required: true})}
-                    />
-                  </div>
+                  
                 </div>
                 <Button type="submit" className="mt-4 w-full">
                   Registrarse

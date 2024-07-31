@@ -7,7 +7,7 @@ function Home() {
     <div className="app-container">
       <Registro />
       <Calendario />
-      <MisRegistros />
+      <MisRegistros/>
     </div>
   );
 }

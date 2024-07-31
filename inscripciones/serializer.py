@@ -20,7 +20,7 @@ class MesaSerializer(serializers.ModelSerializer):
         fields='__all__'
         
 class InscripcionSerializer(serializers.ModelSerializer):
-    
+    mesa=MesaSerializer()
     class Meta:
         model= Inscripcion
         fields='__all__'

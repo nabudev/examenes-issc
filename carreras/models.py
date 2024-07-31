@@ -24,4 +24,4 @@ class Carrera(models.Model):
     anio= models.ForeignKey(AnioCarrera, on_delete=models.CASCADE)
     
     def __str__(self):
-        return f'Carrera: {self.tecprof} - Año: {self.anio}'
+        return f'{self.tecprof} - Año: {self.anio}'
