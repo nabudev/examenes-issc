@@ -15,3 +15,4 @@ export const getAllInscripciones = () => {
 }
 export const createInscripcion= (inscripcion) => inscripcionesApi.post("/", inscripcion);
 export const deleteInscripcion= (id) => inscripcionesApi.delete(`${id}/`);
+export const updateInscripcion= (id, inscripcion) => inscripcionesApi.put(`${id}/`, inscripcion);
