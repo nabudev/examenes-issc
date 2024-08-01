@@ -61,7 +61,13 @@ export function MisRegistros() {
                       <TableCell>{formatTime(inscripcion.mesa.llamado.hora)}</TableCell>
                       <TableCell>
                       <Button variant="outline">Modificar</Button>
-                      <Button variant="outline" onClick={() => handleDelete(inscripcion.id)}>Eliminar</Button>
+                      <Button variant="outline" onClick={async () =>{
+                        const accepted= window.confirm('Usted está por borrarse de una mesa. ¿Desea continuar?')
+                        if(accepted){
+                          await handleDelete(inscripcion.id)
+                        }
+                      }}>Eliminar</Button>
+                        
                       </TableCell>
                       <TableCell>
                       <div className="bg-green-500 text-green-50 px-2 py-1 rounded-md text-sm">Aprobada</div>
