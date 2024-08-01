@@ -12,8 +12,8 @@ export function Registro() {
   const {register, handleSubmit} = useForm();
 
   const onSubmit= handleSubmit(async data => {
-    const res= await createInscripcion(data)
-    console.log(res)
+    await createInscripcion(data)
+    window.location.reload();
   })
 
   useEffect(() => {
@@ -85,8 +85,11 @@ export function Registro() {
                   <div>
                     <Label htmlFor="mesa">Selecciona una Mesa</Label>
                     <select
-                      className="block w-full px-3 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" 
+                      className="block w-full px-3 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                       {...register("mesa", { required: true })}>
+                        <option value="" disabled>
+                          Selecciona una opción
+                        </option>
                         {mesas.map((mesa) => (
                           <option key={mesa.id} value={mesa.id}>
                             {mesa.materia.nombre}- {mesa.llamado.fecha} - {mesa.llamado.hora}

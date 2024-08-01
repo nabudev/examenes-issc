@@ -44,3 +44,4 @@ export const getAllInscripciones = () => {
     return axios.get('http://localhost:8000/inscripciones/inscripciones/inscripciones/')
 }
 export const createInscripcion= (inscripcion) => inscripcionesApi.post("/", inscripcion);
+export const deleteInscripcion= (id) => inscripcionesApi.delete(`${id}`);
