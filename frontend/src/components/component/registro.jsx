@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
 import React, { useEffect, useState } from 'react';
-import {getAllMesas, getAllCarreras, createInscripcion} from '@/api/api.js';
+import {getAllMesas, createInscripcion} from '@/api/api.js';
 import { useForm } from "react-hook-form";
 
 export function Registro() {
