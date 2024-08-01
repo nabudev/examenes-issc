@@ -15,5 +15,10 @@ class MesaView(viewsets.ModelViewSet):
     queryset= Mesa.objects.all()
     
 class InscripcionView(viewsets.ModelViewSet):
-    serializer_class= InscripcionSerializer
+    
     queryset= Inscripcion.objects.all()
+    
+    def get_serializer_class(self):
+        if self.action == 'create':
+            return InscripcionCreateSerializer
+        return InscripcionDetailSerializer

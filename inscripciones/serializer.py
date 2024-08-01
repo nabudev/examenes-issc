@@ -1,6 +1,5 @@
 from rest_framework import serializers
 from .models import *
-from alumnos.serializer import AlumnoSerializer
 
 class MateriaSerializer(serializers.ModelSerializer):
     class Meta:
@@ -19,9 +18,14 @@ class MesaSerializer(serializers.ModelSerializer):
         model= Mesa
         fields='__all__'
         
-class InscripcionSerializer(serializers.ModelSerializer):
-    mesa=MesaSerializer()
+class InscripcionCreateSerializer(serializers.ModelSerializer):
     class Meta:
-        model= Inscripcion
-        fields='__all__'
+        model = Inscripcion
+        fields = '__all__'
+        
+class InscripcionDetailSerializer(serializers.ModelSerializer):
+    mesa = MesaSerializer()
+    class Meta:
+        model = Inscripcion
+        fields = '__all__'
         
