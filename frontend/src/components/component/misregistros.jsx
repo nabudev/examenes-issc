@@ -2,7 +2,7 @@
 import { Button } from "@/components/ui/button"
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table"
 import React, { useState, useEffect } from 'react';
-import {getAllInscripciones} from '@/api/api.js';
+import {getAllInscripciones, deleteInscripcion} from '@/api/api.js';
 
 export function MisRegistros() {
 
@@ -23,6 +23,19 @@ export function MisRegistros() {
   const formatDate = (dateString) => {
     const [year, month, day] = dateString.split('-');
     return `${day}-${month}-${year}`; // Devuelve la fecha en formato "DD-MM-YYYY"
+  };
+
+  const handleDelete = (id) => {
+    deleteInscripcion(id)
+      .then(response => {
+        console.log('Inscripción eliminada:', response.data);
+        setInscripciones(prevInscripciones => 
+          prevInscripciones.filter(inscripcion => inscripcion.id !== id)
+        );
+      })
+      .catch(error => {
+        console.error('Error al eliminar inscripción:', error.response);
+      });
   };
 
   return (
@@ -48,7 +61,7 @@ export function MisRegistros() {
                       <TableCell>{formatTime(inscripcion.mesa.llamado.hora)}</TableCell>
                       <TableCell>
                       <Button variant="outline">Modificar</Button>
-                      <Button variant="outline">Eliminar</Button>
+                      <Button variant="outline" onClick={() => handleDelete(inscripcion.id)}>Eliminar</Button>
                       </TableCell>
                       <TableCell>
                       <div className="bg-green-500 text-green-50 px-2 py-1 rounded-md text-sm">Aprobada</div>
