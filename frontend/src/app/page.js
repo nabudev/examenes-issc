@@ -4,7 +4,7 @@ import { MisRegistros } from "@/components/component/misregistros"
 
 function Home() {
   return (
-    <div className="app-container">
+    <div id="__next">
       <Registro />
       <Calendario />
       <MisRegistros/>

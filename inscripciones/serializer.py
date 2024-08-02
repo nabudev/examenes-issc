@@ -28,4 +28,9 @@ class InscripcionDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Inscripcion
         fields = '__all__'
+
+class InscripcionUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Inscripcion
+        fields = '__all__'
         

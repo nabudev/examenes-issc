@@ -1,12 +1,20 @@
 "use client";
 import { Button } from "@/components/ui/button"
+import { Label } from "@/components/ui/label"
+import { Input } from "@/components/ui/input"
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table"
 import React, { useState, useEffect } from 'react';
-import {getAllInscripciones, deleteInscripcion} from '@/api/api.js';
+import { useForm } from "react-hook-form";
+import Modal from 'react-modal';
+import {getAllInscripciones, deleteInscripcion, updateInscripcion, getAllMesas} from '@/api/api.js';
+Modal.setAppElement('#__next'); // Ajusta según tu estructura
 
 export function MisRegistros() {
-
   const [inscripciones, setInscripciones] = useState([]);
+  const [mesas, setMesas] = useState([]);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [selectedInscripcion, setSelectedInscripcion] = useState(null);
+  const { register, handleSubmit, reset } = useForm();
 
   useEffect(() => {
     async function loadInscripciones(){
@@ -14,6 +22,14 @@ export function MisRegistros() {
       setInscripciones(res.data);
     }
     loadInscripciones();
+  }, []);
+
+  useEffect(() => {
+    async function loadMesas(){
+      const res= await getAllMesas();
+      setMesas(res.data);
+    }
+    loadMesas();
   }, []);
 
   const formatTime = (timeString) => {
@@ -30,6 +46,32 @@ export function MisRegistros() {
         setInscripciones(prevInscripciones => 
           prevInscripciones.filter(inscripcion => inscripcion.id !== id)
         );
+  };
+
+  const openModal = (inscripcion) => {
+    setSelectedInscripcion(inscripcion);
+    reset({
+      dni: inscripcion.dni,
+      mesa: inscripcion.mesa,
+    });
+    setModalIsOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalIsOpen(false);
+    setSelectedInscripcion(null);
+  };
+
+  const onSubmit = async (data) => {
+    if (selectedInscripcion) {
+      await updateInscripcion(selectedInscripcion.id, data);
+      setInscripciones(prevInscripciones =>
+        prevInscripciones.map(inscripcion =>
+          inscripcion.id === selectedInscripcion.id ? { ...inscripcion, ...data } : inscripcion
+        )
+      );
+      closeModal();
+    }
   };
 
   return (
@@ -54,7 +96,7 @@ export function MisRegistros() {
                       <TableCell>{formatDate(inscripcion.mesa.llamado.fecha)}</TableCell>
                       <TableCell>{formatTime(inscripcion.mesa.llamado.hora)}</TableCell>
                       <TableCell>
-                      <Button variant="outline">Modificar</Button>
+                      <Button variant="outline" onClick={() => openModal(inscripcion)}>Modificar</Button>
                       <Button variant="outline" onClick={async () =>{
                         const accepted= window.confirm('Usted está por borrarse de una mesa. ¿Desea continuar?')
                         if(accepted){
@@ -69,9 +111,48 @@ export function MisRegistros() {
                     </TableRow>
                   ))}
                 </TableBody>
+
         </Table>
       </div>
     </div>
+    <Modal isOpen={modalIsOpen} onRequestClose={closeModal} className="modal">
+        <h2 className="text-2xl font-bold mb-4">Actualizar Inscripción</h2>
+        <form className="bg-card p-4 rounded-md shadow-sm" onSubmit={handleSubmit(onSubmit)}>
+          <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <Label htmlFor="dni">DNI</Label>
+              <Input
+                id="dni"
+                placeholder="Ingresa tu DNI sin puntos ni espacios"
+                {...register("dni", { required: true })}
+              />
+            </div>
+            <div>
+              <Label htmlFor="mesa">Selecciona una Mesa</Label>
+              <select
+                id="mesa"
+                className="block w-full px-3 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                {...register("mesa", { required: true })}
+              >
+                <option value="" disabled>
+                  Selecciona una opción
+                </option>
+                {mesas.map((mesa) => (
+                  <option key={mesa.id} value={mesa.id}>
+                    {mesa.materia.nombre}- {mesa.llamado.fecha} - {mesa.llamado.hora}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+          <Button type="submit" className="mt-4 w-1/2">
+            Actualizar
+          </Button>
+          <Button type="button" onClick={closeModal} variant="outline" className="mt-4 w-1/2">
+            Cancelar
+          </Button>
+        </form>
+      </Modal>
   </section>
   );
 }

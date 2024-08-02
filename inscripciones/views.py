@@ -21,4 +21,8 @@ class InscripcionView(viewsets.ModelViewSet):
     def get_serializer_class(self):
         if self.action == 'create':
             return InscripcionCreateSerializer
+        elif self.action in ['update', 'partial_update']:
+            return InscripcionUpdateSerializer
         return InscripcionDetailSerializer
+    
+    
