@@ -70,7 +70,7 @@ export function Registro() {
         </div>
             <div>
               <h2 className="text-2xl font-bold mb-4">Registrarse para un Examen</h2>
-              <form className="bg-card p-4 rounded-md shadow-sm" onSubmit={handleSubmit(onSubmit)}>
+              <form className="bg-card p-4 rounded-md shadow-sm" onSubmit={onSubmit}>
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <Label htmlFor="dni">DNI</Label>
