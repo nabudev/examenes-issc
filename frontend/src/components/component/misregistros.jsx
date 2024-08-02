@@ -27,15 +27,9 @@ export function MisRegistros() {
 
   const handleDelete = (id) => {
     deleteInscripcion(id)
-      .then(response => {
-        console.log('Inscripción eliminada:', response.data);
         setInscripciones(prevInscripciones => 
           prevInscripciones.filter(inscripcion => inscripcion.id !== id)
         );
-      })
-      .catch(error => {
-        console.error('Error al eliminar inscripción:', error.response);
-      });
   };
 
   return (
