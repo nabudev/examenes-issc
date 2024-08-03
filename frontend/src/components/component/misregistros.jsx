@@ -65,6 +65,7 @@ export function MisRegistros() {
   const onSubmit = async (data) => {
     if (selectedInscripcion) {
       await updateInscripcion(selectedInscripcion.id, data);
+      window.location.reload();
       setInscripciones(prevInscripciones =>
         prevInscripciones.map(inscripcion =>
           inscripcion.id === selectedInscripcion.id ? { ...inscripcion, ...data } : inscripcion
