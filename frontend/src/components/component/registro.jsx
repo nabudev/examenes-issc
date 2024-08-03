@@ -43,6 +43,9 @@ export function Registro() {
       </header>
       <main className="flex-1 bg-background">
         <section className="py-8 px-6">
+          <img src="img\logoissc.jpg" alt="logo" className="d-block mx-auto w-1/2 max-w-xs"/>
+          <br />
+          <br />
           <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
             <div>
             <div>
