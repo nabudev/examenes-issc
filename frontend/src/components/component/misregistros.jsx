@@ -64,7 +64,10 @@ export function MisRegistros() {
 
   const onSubmit = async (data) => {
     if (selectedInscripcion) {
-      await updateInscripcion(selectedInscripcion.id, data);
+      const accepted= window.confirm('¿Esta seguro de modificar su inscripción?')
+      if(accepted){
+        await updateInscripcion(selectedInscripcion.id, data);
+      }
       window.location.reload();
       setInscripciones(prevInscripciones =>
         prevInscripciones.map(inscripcion =>
@@ -116,7 +119,8 @@ export function MisRegistros() {
         </Table>
       </div>
     </div>
-    <Modal isOpen={modalIsOpen} onRequestClose={closeModal} className="modal">
+    <Modal isOpen={modalIsOpen} onRequestClose={closeModal} className="fixed inset-0 flex items-center justify-center z-50" overlayClassName="fixed inset-0 bg-black bg-opacity-50 backdrop-filter backdrop-blur-sm">
+      <div className="bg-white rounded-md p-6 w-full max-w-md mx-auto">
         <h2 className="text-2xl font-bold mb-4">Actualizar Inscripción</h2>
         <form className="bg-card p-4 rounded-md shadow-sm" onSubmit={handleSubmit(onSubmit)}>
           <div className="grid grid-cols-2 gap-4">
@@ -153,6 +157,7 @@ export function MisRegistros() {
             Cancelar
           </Button>
         </form>
+      </div>
       </Modal>
   </section>
   );
