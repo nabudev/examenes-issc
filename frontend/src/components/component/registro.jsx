@@ -12,7 +12,11 @@ export function Registro() {
   const {register, handleSubmit} = useForm();
 
   const onSubmit= handleSubmit(async data => {
-    await createInscripcion(data)
+    const accepted= window.confirm('Confirmar inscripción')
+    if (accepted){
+      await createInscripcion(data)
+    }
+    
     window.location.reload();
   })
 
