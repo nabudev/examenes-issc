@@ -87,10 +87,14 @@ export function Registro() {
                       {...register("dni", {required: true})}
                     />
                   </div>
-                  <div>
+                  <div className="space-y-2">
+                    <Label>Apellido y Nombre</Label>
+                    <Input 
+                      placeholder="Ingrese su nombre completo"
+                    />
                   </div>
                   <div>
-                    <Label htmlFor="mesa">Selecciona una Mesa</Label>
+                    <Label htmlFor="mesa">Selecciona una mesa de examen</Label>
                     <select
                       className="block w-full px-3 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                       {...register("mesa", { required: true })}>
@@ -104,9 +108,8 @@ export function Registro() {
                           ))}
                     </select>
                   </div>
-                  
                 </div>
-                <Button type="submit" className="mt-4 w-1/2">
+                <Button type="submit" className="mt-4 w-full">
                   Registrarse
                 </Button>
               </form>
