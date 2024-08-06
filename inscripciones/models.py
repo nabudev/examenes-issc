@@ -28,15 +28,24 @@ class Inscripcion(models.Model):
     mesa = models.ForeignKey(Mesa, on_delete=models.CASCADE)
     #estado de la inscripcion
     ESTADO_OPCIONES = [
-        ('en_revision', 'En Revisión'),
+        ('En Revisión', 'En Revisión'),
         ('Aprobado', 'Aprobado'),
         ('Rechazado', 'Rechazado'),
     ]
     estado= models.CharField(max_length=20, choices=ESTADO_OPCIONES ,default="En revisión", null=True, blank=True)
     #para que estado vuelva a "en revision" cada vez que se actualice
     def save(self, *args, **kwargs):
-        # Resetear el estado a "en_revision" cada vez que se guarde la inscripción
-        self.estado = 'En revisión'
+    # Obtener el estado actual de la inscripción (si existe en la base de datos)
+        if self.pk:
+            existing_inscripcion = Inscripcion.objects.get(pk=self.pk)
+            # Verificar si se modificaron campos críticos (como 'dni' o 'mesa')
+            if (self.dni != existing_inscripcion.dni) or (self.mesa != existing_inscripcion.mesa):
+                # Restablecer el estado a "en_revision" si se modificaron los campos críticos
+                self.estado = 'En Revisión'
+        else:
+            # Si es una nueva inscripción, establecer estado a "en_revision"
+            self.estado = 'En Revisión'
+
         super().save(*args, **kwargs)
     
     def __str__(self):
