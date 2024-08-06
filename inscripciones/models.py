@@ -26,6 +26,18 @@ class Mesa(models.Model):
 class Inscripcion(models.Model):
     dni = models.ForeignKey(Alumno, on_delete=models.CASCADE)
     mesa = models.ForeignKey(Mesa, on_delete=models.CASCADE)
+    #estado de la inscripcion
+    ESTADO_OPCIONES = [
+        ('en_revision', 'En Revisión'),
+        ('Aprobado', 'Aprobado'),
+        ('Rechazado', 'Rechazado'),
+    ]
+    estado= models.CharField(max_length=20, choices=ESTADO_OPCIONES ,default="En revisión", null=True, blank=True)
+    #para que estado vuelva a "en revision" cada vez que se actualice
+    def save(self, *args, **kwargs):
+        # Resetear el estado a "en_revision" cada vez que se guarde la inscripción
+        self.estado = 'En revisión'
+        super().save(*args, **kwargs)
     
     def __str__(self):
         return f'Alumno: {self.dni} - Examen: {self.mesa}'

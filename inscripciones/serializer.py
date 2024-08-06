@@ -22,6 +22,7 @@ class InscripcionCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Inscripcion
         fields = '__all__'
+        read_only_fields = ['estado']
     
     def validate(self, data):
         dni = data.get('dni')
@@ -43,6 +44,7 @@ class InscripcionUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Inscripcion
         fields = '__all__'
+        read_only_fields = ['estado']
     
     def validate(self, data):
         dni = data.get('dni')

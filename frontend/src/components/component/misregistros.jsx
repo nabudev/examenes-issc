@@ -110,7 +110,7 @@ export function MisRegistros() {
                         
                       </TableCell>
                       <TableCell>
-                      <div className="bg-green-500 text-green-50 px-2 py-1 rounded-md text-sm">Aprobada</div>
+                      <div className="bg-green-500 text-green-50 px-2 py-1 rounded-md text-sm">{inscripcion.estado}</div>
                       </TableCell>
                     </TableRow>
                   ))}
