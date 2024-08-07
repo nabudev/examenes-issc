@@ -1,6 +1,7 @@
 import { Registro } from "@/components/component/registro"
 import { Calendario } from "@/components/component/calendario"
 import { MisRegistros } from "@/components/component/misregistros"
+import { Toaster } from "react-hot-toast";
 
 function Home() {
   return (
@@ -8,6 +9,7 @@ function Home() {
       <Registro />
       <Calendario />
       <MisRegistros/>
+      <Toaster/>
     </div>
   );
 }

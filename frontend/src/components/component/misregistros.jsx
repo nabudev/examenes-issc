@@ -7,6 +7,7 @@ import React, { useState, useEffect } from 'react';
 import { useForm } from "react-hook-form";
 import Modal from 'react-modal';
 import {getAllInscripciones, deleteInscripcion, updateInscripcion, getAllMesas} from '@/api/api.js';
+import {toast} from 'react-hot-toast';
 Modal.setAppElement('#__next'); // Ajusta según tu estructura
 
 export function MisRegistros() {
@@ -46,6 +47,7 @@ export function MisRegistros() {
         setInscripciones(prevInscripciones => 
           prevInscripciones.filter(inscripcion => inscripcion.id !== id)
         );
+        toast.success('Inscripción eliminada')
   };
 
   const openModal = (inscripcion) => {

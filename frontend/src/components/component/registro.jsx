@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input"
 import React, { useEffect, useState } from 'react';
 import {getAllMesas, createInscripcion} from '@/api/api.js';
 import { useForm } from "react-hook-form";
+import {toast} from 'react-hot-toast';
 
 export function Registro() {
   const [mesas, setMesas] = useState([]);
@@ -14,10 +15,13 @@ export function Registro() {
   const onSubmit= handleSubmit(async data => {
     const accepted= window.confirm('Confirmar inscripción')
     if (accepted){
-      await createInscripcion(data)
+      await createInscripcion(data);
+      toast.success('Inscripción realizada con éxito')
+      setTimeout(function() {
+        window.location.reload();
+      }, 1000); 
+      
     }
-    
-    window.location.reload();
   })
 
   useEffect(() => {
