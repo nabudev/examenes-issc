@@ -33,7 +33,7 @@ export function Registro() {
       <header className="bg-primary text-primary-foreground py-4 px-6 sticky top-0 z-50">
         <div className="container mx-auto flex items-center justify-between">
           <Link href="#" className="text-xl font-bold" prefetch={false}>
-            Inscripción de exámenes finales - Instituto Superior San Cristobal
+          Instituto Superior San Cristobal - Inscripción de exámenes finales
           </Link>
           <nav className="flex items-center gap-4">
             <Link href="#mi-calendario" className="hover:underline" prefetch={false}>
@@ -76,14 +76,14 @@ export function Registro() {
           </div>
         </div>
             <div>
-              <h2 className="text-2xl font-bold mb-4">Registrarse para un Examen</h2>
+              <h2 className="text-2xl font-bold mb-4">Registrarse para un examen</h2>
               <form className="bg-card p-4 rounded-md shadow-sm" onSubmit={onSubmit}>
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <Label htmlFor="dni">DNI</Label>
                     <Input 
                       id="dni"
-                      placeholder="Ingresa tu DNI sin puntos ni espacios"
+                      placeholder="Ingrese su DNI sin puntos ni espacios"
                       {...register("dni", {required: true})}
                     />
                   </div>
