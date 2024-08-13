@@ -32,46 +32,6 @@ export function Calendario() {
           <div className="container mx-auto">
             <h2 className="text-2xl font-bold mb-4">Calendario de Exámenes</h2>
             <div className="bg-card p-4 rounded-md shadow-sm">
-              <div className="flex items-center justify-between mb-4">
-                <div className="flex items-center gap-2">
-                  <Select>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Carrera" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="computer-science">Ciencias de la Computación</SelectItem>
-                      <SelectItem value="business-administration">Administración de Empresas</SelectItem>
-                      <SelectItem value="civil-engineering">Ingeniería Civil</SelectItem>
-                    </SelectContent>
-                  </Select>
-                  <Select>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Materia" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="software-engineering">Ingeniería de Software</SelectItem>
-                      <SelectItem value="algorithms">Algoritmos y Estructuras de Datos</SelectItem>
-                      <SelectItem value="database-systems">Sistemas de Bases de Datos</SelectItem>
-                    </SelectContent>
-                  </Select>
-                  <Select>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Seleccionar año" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="1">1er Año</SelectItem>
-                      <SelectItem value="2">2do Año</SelectItem>
-                      <SelectItem value="3">3er Año</SelectItem>
-                      <SelectItem value="4">4to Año</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-                <div>
-                  <Input
-                    placeholder="Buscar exámenes..."
-                    className="bg-background text-foreground" />
-                </div>
-              </div>
               <Table>
                 <TableHeader>
                   <TableRow>
