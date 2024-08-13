@@ -1,17 +1,11 @@
-import { Registro } from "@/components/component/registro"
-import { Calendario } from "@/components/component/calendario"
-import { MisRegistros } from "@/components/component/misregistros"
-import { Toaster } from "react-hot-toast";
+// pages/login.js
+import React from 'react';
+import { Login } from '@/components/component/login';  // Ajusta la ruta según tu estructura
 
-function Home() {
-  return (
-    <div id="__next">
-      <Registro />
-      <Calendario />
-      <MisRegistros/>
-      <Toaster/>
-    </div>
-  );
+export default function LoginPage() {
+    return (
+        <div id="__next">
+            <Login />
+        </div>
+    );
 }
-
-export default Home;
