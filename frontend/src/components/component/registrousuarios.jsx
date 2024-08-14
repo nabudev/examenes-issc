@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button"
 import React from "react";
 import Link from "next/link"
 import { useRouter } from 'next/navigation';
+import {toast} from 'react-hot-toast';
 
 export function RegistroUsuarios() {
   const [dni, setDni] = useState('');
@@ -22,11 +23,11 @@ export function RegistroUsuarios() {
         });
         console.log(response.data.message);
         if (response.status === 201) {
-            router.push('/login');  // Redirige al login o a la página principal
+            router.push('/');  // Redirige al login o a la página principal
         }
     } catch (error) {
         console.error("Error en el registro:", error.response ? error.response.data.error : error.message);
-        alert(error.response ? error.response.data.error : "Error en el registro.");
+        toast.error("El DNI ya está registrado o no corresponde a un alumno de la institución");
     }
   };
 
