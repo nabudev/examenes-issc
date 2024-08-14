@@ -1,4 +1,6 @@
 "use client";
+import axios from 'axios';
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
@@ -7,13 +9,22 @@ import React from "react";
 
 export function Login() {
   const router = useRouter();
+  const [dni, setDni] = useState('');
+  const [password, setPassword] = useState('');
 
-  const handleLogin = (e) => {
-    e.preventDefault();
-      // Aquí puedes agregar la lógica de autenticación
-
-      // Después de un login exitoso, redirige a la página principal
-    router.push('/home');  // Esto redirige a la página principal
+    const handleLogin = async (e) => {
+      e.preventDefault();
+      try {
+          const response = await axios.post('http://localhost:8000/autenticacion/login/', {
+              dni: dni,
+              password: password
+          });
+          localStorage.setItem('token', response.data.token);
+          // Redirige a la página principal después del login exitoso
+          router.push('/home');
+      } catch (error) {
+          console.error("Login failed:", error.response.data);
+      }
   };
 
   return (
@@ -38,6 +49,8 @@ export function Login() {
               type="text"
               placeholder="Ingresa tu DNI"
               className="w-full"
+              value={dni}
+              onChange={(e) => setDni(e.target.value)}
               required />
           </div>
           <div>
@@ -47,6 +60,8 @@ export function Login() {
               type="password"
               placeholder="Ingresa tu contraseña"
               className="w-full"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               required />
           </div>
           <Button type="submit" className="w-full">
@@ -57,3 +72,5 @@ export function Login() {
     </div>)
   );
 }
+
+export default Login;

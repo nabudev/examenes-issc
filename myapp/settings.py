@@ -42,7 +42,9 @@ INSTALLED_APPS = [
     'alumnos',
     'carreras',
     'inscripciones',
+    'autenticacion',
     'rest_framework',
+    'rest_framework.authtoken',
     'corsheaders',
     'coreapi'
 ]
