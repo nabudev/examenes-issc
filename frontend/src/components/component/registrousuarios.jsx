@@ -1,32 +1,35 @@
 "use client";
 import axios from 'axios';
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-import Link from "next/link"
 import React from "react";
+import Link from "next/link"
+import { useRouter } from 'next/navigation';
 
-export function Login() {
-  const router = useRouter();
+export function RegistroUsuarios() {
   const [dni, setDni] = useState('');
   const [password, setPassword] = useState('');
+  const router = useRouter();  
 
-  const handleLogin = async (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
     try {
-        const response = await axios.post('http://localhost:8000/autenticacion/login/', {
+        const response = await axios.post('http://localhost:8000/autenticacion/register/', {
             dni: dni,
             password: password
         });
-        localStorage.setItem('token', response.data.token);
-          // Redirige a la página principal después del login exitoso
-        router.push('/home');
-        } catch (error) {
-            console.error("Login failed:", error.response.data);
-          }
+        console.log(response.data.message);
+        if (response.status === 201) {
+            router.push('/login');  // Redirige al login o a la página principal
+        }
+    } catch (error) {
+        console.error("Error en el registro:", error.response ? error.response.data.error : error.message);
+        alert(error.response ? error.response.data.error : "Error en el registro.");
+    }
   };
+
 
   return (
     (<div
@@ -41,8 +44,8 @@ export function Login() {
             className="h-12"
             style={{ aspectRatio: "100/100", objectFit: "cover" }} />
         </div>
-        <h2 className="text-2xl font-bold mb-4 text-center">Iniciar sesión</h2>
-        <form className="space-y-4" onSubmit={handleLogin}>
+        <h2 className="text-2xl font-bold mb-4 text-center">Registrarse</h2>
+        <form className="space-y-4" onSubmit={handleRegister}>
           <div>
             <Label htmlFor="dni">DNI</Label>
             <Input
@@ -59,18 +62,18 @@ export function Login() {
             <Input
               id="password"
               type="password"
-              placeholder="Ingresa tu contraseña"
+              placeholder="Ingresa una contraseña"
               className="w-full"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required />
           </div>
           <Button type="submit" className="w-full">
-            Ingresar
+            Registrarme
           </Button>
           <div className="text-center text-muted-foreground">
-            <Link href="/register" className="underline" prefetch={false}>
-              Registrarme
+            <Link href="/" className="underline" prefetch={false}>
+              Volver a inicio de sesión
             </Link>
           </div>
         </form>
@@ -79,4 +82,4 @@ export function Login() {
   );
 }
 
-export default Login;
+export default RegistroUsuarios;
