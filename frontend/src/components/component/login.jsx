@@ -12,19 +12,19 @@ export function Login() {
   const [dni, setDni] = useState('');
   const [password, setPassword] = useState('');
 
-    const handleLogin = async (e) => {
-      e.preventDefault();
-      try {
-          const response = await axios.post('http://localhost:8000/autenticacion/login/', {
-              dni: dni,
-              password: password
-          });
-          localStorage.setItem('token', response.data.token);
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+        const response = await axios.post('http://localhost:8000/autenticacion/login/', {
+            dni: dni,
+            password: password
+        });
+        localStorage.setItem('token', response.data.token);
           // Redirige a la página principal después del login exitoso
-          router.push('/home');
-      } catch (error) {
-          console.error("Login failed:", error.response.data);
-      }
+        router.push('/home');
+        } catch (error) {
+            console.error("Login failed:", error.response.data);
+          }
   };
 
   return (
