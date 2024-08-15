@@ -23,7 +23,7 @@ export function RegistroUsuarios() {
         });
         console.log(response.data.message);
         if (response.status === 201) {
-            router.push('/');  // Redirige al login o a la página principal
+            router.push('/home');  // Redirige al login o a la página principal
         }
     } catch (error) {
         console.error("Error en el registro:", error.response ? error.response.data.error : error.message);
