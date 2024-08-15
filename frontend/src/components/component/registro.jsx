@@ -7,10 +7,12 @@ import React, { useEffect, useState } from 'react';
 import {getAllMesas, createInscripcion} from '@/api/api.js';
 import { useForm } from "react-hook-form";
 import {toast} from 'react-hot-toast';
+import { useRouter } from 'next/navigation';
 
 export function Registro() {
   const [mesas, setMesas] = useState([]);
   const {register, handleSubmit} = useForm();
+  const router = useRouter();
 
   const onSubmit= handleSubmit(async data => {
     const accepted= window.confirm('Confirmar inscripción')
@@ -23,6 +25,14 @@ export function Registro() {
       
     }
   })
+
+  const handleLogout = () => {
+      // Elimina el token de autenticación
+    localStorage.removeItem('token');
+  
+      // Redirige al usuario a la página de inicio de sesión
+    router.push('/');
+  };
 
   useEffect(() => {
     async function loadMesas(){
@@ -46,6 +56,9 @@ export function Registro() {
             <Link href="#mi-registro" className="hover:underline" prefetch={false}>
               Mis Registros
             </Link>
+            <button className="hover:underline" onClick={handleLogout}>
+              Cerrar sesión
+            </button>
           </nav>
         </div>
       </header>
