@@ -21,12 +21,13 @@ export function RegistroUsuarios() {
             dni: dni,
             password: password
         });
-        console.log(response.data.message);
         if (response.status === 201) {
-            router.push('/home');  // Redirige al login o a la página principal
+          toast.success('Usuario registrado con éxito')
+          setTimeout(function() {
+            router.push('/');  // Redirige al login o a la página principal
+          }, 1500); 
         }
     } catch (error) {
-        console.error("Error en el registro:", error.response ? error.response.data.error : error.message);
         toast.error("El DNI ya está registrado o no corresponde a un alumno de la institución");
     }
   };
