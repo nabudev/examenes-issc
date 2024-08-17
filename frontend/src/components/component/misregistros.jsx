@@ -67,16 +67,30 @@ export function MisRegistros() {
   const onSubmit = async (data) => {
     if (selectedInscripcion) {
       const accepted= window.confirm('¿Esta seguro de modificar su inscripción?')
-      if(accepted){
-        await updateInscripcion(selectedInscripcion.id, data);
+      if (accepted) {
+        try {
+          const response = await updateInscripcion(selectedInscripcion.id, data);
+  
+          if (response.status === 200) {
+            toast.success('Inscripción modificada con éxito');
+            setInscripciones(prevInscripciones =>
+              prevInscripciones.map(inscripcion =>
+                inscripcion.id === selectedInscripcion.id ? { ...inscripcion, ...data } : inscripcion
+              )
+            );
+            closeModal();
+            window.location.reload();
+          } else {
+            toast.error('Error al modificar la inscripción');
+          }
+        } catch (error) {
+          if (error.response && error.response.status === 400) {
+            toast.error('Ya estás inscripto a esta mesa de examen');
+          } else {
+            toast.error('Ocurrió un error al modificar la inscripción.');
+          }
+        }
       }
-      window.location.reload();
-      setInscripciones(prevInscripciones =>
-        prevInscripciones.map(inscripcion =>
-          inscripcion.id === selectedInscripcion.id ? { ...inscripcion, ...data } : inscripcion
-        )
-      );
-      closeModal();
     }
   };
 
