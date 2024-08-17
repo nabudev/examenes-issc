@@ -16,15 +16,28 @@ export function Registro() {
 
   const onSubmit= handleSubmit(async data => {
     const accepted= window.confirm('Confirmar inscripción')
-    if (accepted){
-      await createInscripcion(data);
-      toast.success('Inscripción realizada con éxito')
-      setTimeout(function() {
-        window.location.reload();
-      }, 1000); 
-      
+    if (accepted) {
+      try {
+        const response = await createInscripcion(data);
+        
+        if (response.status === 201) {
+          toast.success('Inscripción realizada con éxito');
+          setTimeout(() => {
+            window.location.reload();
+          }, 1000);
+        } else {
+          toast.error("Error al realizar la inscripción");
+        }
+      } catch (error) {
+        // Manejo de errores específicos
+        if (error.response && error.response.status === 400) {
+          toast.error("Ya estás inscripto a esta mesa de examen");
+        } else {
+          toast.error("Ocurrió un error al realizar la inscripción");
+        }
+      }
     }
-  })
+  });
 
   const handleLogout = () => {
       // Elimina el token de autenticación
