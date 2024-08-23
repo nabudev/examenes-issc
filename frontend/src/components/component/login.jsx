@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import React from "react";
+import {toast} from 'react-hot-toast';
 
 export function Login() {
   const router = useRouter();
@@ -24,7 +25,7 @@ export function Login() {
           // Redirige a la página principal después del login exitoso
         router.push('/home');
         } catch (error) {
-            console.error("Login failed:", error.response.data);
+            toast.error('DNI o contraseña son incorrectos');
           }
   };
 
