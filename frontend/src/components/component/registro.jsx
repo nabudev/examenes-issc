@@ -8,15 +8,24 @@ import {getAllMesas, createInscripcion} from '@/api/api.js';
 import { useForm } from "react-hook-form";
 import {toast} from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
+import Swal from 'sweetalert2';
+
 
 export function Registro() {
   const [mesas, setMesas] = useState([]);
   const {register, handleSubmit} = useForm();
   const router = useRouter();
 
-  const onSubmit= handleSubmit(async data => {
-    const accepted= window.confirm('Confirmar inscripción')
-    if (accepted) {
+  const onSubmit = handleSubmit(async (data) => {
+    const result = await Swal.fire({
+      title: 'Confirma tu inscripción',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, confirmar',
+      cancelButtonText: 'Cancelar',
+    });
+  
+    if (result.isConfirmed) {
       try {
         const response = await createInscripcion(data);
         
@@ -26,14 +35,13 @@ export function Registro() {
             window.location.reload();
           }, 1000);
         } else {
-          toast.error("Error al realizar la inscripción");
+          toast.error('Error al realizar la inscripción');
         }
       } catch (error) {
-        // Manejo de errores específicos
         if (error.response && error.response.status === 400) {
-          toast.error("Ya estás inscripto a esta mesa de examen");
+          toast.error('Ya estás inscripto a esta mesa de examen');
         } else {
-          toast.error("Ocurrió un error al realizar la inscripción");
+          toast.error('Ocurrió un error al realizar la inscripción');
         }
       }
     }

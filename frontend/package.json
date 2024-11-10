@@ -23,6 +23,7 @@
     "react-hook-form": "^7.52.1",
     "react-hot-toast": "^2.4.1",
     "react-modal": "^3.16.1",
+    "sweetalert2": "^11.14.5",
     "tailwind-merge": "^2.4.0",
     "tailwindcss-animate": "^1.0.7"
   },
