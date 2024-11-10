@@ -8,6 +8,7 @@ import { useForm } from "react-hook-form";
 import Modal from 'react-modal';
 import {getAllInscripciones, deleteInscripcion, updateInscripcion, getAllMesas} from '@/api/api.js';
 import {toast} from 'react-hot-toast';
+import Swal from 'sweetalert2';
 Modal.setAppElement('#__next'); // Ajusta según tu estructura
 
 export function MisRegistros() {
@@ -66,15 +67,22 @@ export function MisRegistros() {
 
   const onSubmit = async (data) => {
     if (selectedInscripcion) {
-      const accepted= window.confirm('¿Esta seguro de modificar su inscripción?')
-      if (accepted) {
+      const result = await Swal.fire({
+        title: '¿Desea modificar su inscripción?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Sí, modificar',
+        cancelButtonText: 'Cancelar',
+      });
+  
+      if (result.isConfirmed) {
         try {
           const response = await updateInscripcion(selectedInscripcion.id, data);
   
           if (response.status === 200) {
             toast.success('Inscripción modificada con éxito');
-            setInscripciones(prevInscripciones =>
-              prevInscripciones.map(inscripcion =>
+            setInscripciones((prevInscripciones) =>
+              prevInscripciones.map((inscripcion) =>
                 inscripcion.id === selectedInscripcion.id ? { ...inscripcion, ...data } : inscripcion
               )
             );
@@ -117,12 +125,24 @@ export function MisRegistros() {
                       <TableCell>{formatTime(inscripcion.mesa.llamado.hora)}</TableCell>
                       <TableCell>
                       <Button variant="outline" onClick={() => openModal(inscripcion)}>Modificar</Button>
-                      <Button variant="outline" onClick={async () =>{
-                        const accepted= window.confirm('Usted está por borrarse de una mesa. ¿Desea continuar?')
-                        if(accepted){
-                          await handleDelete(inscripcion.id)
-                        }
-                      }}>Eliminar</Button>
+                      <Button
+                            variant="outline"
+                            onClick={async () => {
+                              const result = await Swal.fire({
+                                title: 'Usted está por borrarse de una mesa. ¿Desea continuar?',
+                                icon: 'warning',
+                                showCancelButton: true,
+                                confirmButtonText: 'Sí, borrar',
+                                cancelButtonText: 'Cancelar',
+                              });
+
+                              if (result.isConfirmed) {
+                                await handleDelete(inscripcion.id);
+                              }
+                            }}
+                          >
+                            Eliminar
+                      </Button>
                         
                       </TableCell>
                       <TableCell>
