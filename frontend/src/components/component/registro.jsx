@@ -6,7 +6,6 @@ import { Input } from "@/components/ui/input"
 import React, { useEffect, useState } from 'react';
 import {getAllMesas, createInscripcion} from '@/api/api.js';
 import { useForm } from "react-hook-form";
-import {toast} from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
 import Swal from 'sweetalert2';
 
@@ -19,33 +18,63 @@ export function Registro() {
   const onSubmit = handleSubmit(async (data) => {
     const result = await Swal.fire({
       title: 'Confirma tu inscripción',
+      text: '¿Estás seguro de confirmar tu inscripción?',
       icon: 'warning',
       showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
       confirmButtonText: 'Sí, confirmar',
-      cancelButtonText: 'Cancelar',
+      cancelButtonText: 'Cancelar'
     });
   
     if (result.isConfirmed) {
       try {
         const response = await createInscripcion(data);
-        
+  
         if (response.status === 201) {
-          toast.success('Inscripción realizada con éxito');
+          Swal.fire({
+            title: 'Inscripción realizada',
+            text: 'Tu inscripción se ha realizado con éxito.',
+            icon: 'success',
+            confirmButtonColor: '#3085d6'
+          });
           setTimeout(() => {
             window.location.reload();
           }, 1000);
         } else {
-          toast.error('Error al realizar la inscripción');
+          Swal.fire({
+            title: 'Error',
+            text: 'Error al realizar la inscripción.',
+            icon: 'error',
+            confirmButtonColor: '#3085d6'
+          });
         }
       } catch (error) {
         if (error.response && error.response.status === 400) {
-          toast.error('Ya estás inscripto a esta mesa de examen');
+          Swal.fire({
+            title: 'Ya inscripto',
+            text: 'Ya estás inscripto a esta mesa de examen.',
+            icon: 'error',
+            confirmButtonColor: '#3085d6'
+          });
         } else {
-          toast.error('Ocurrió un error al realizar la inscripción');
+          Swal.fire({
+            title: 'Error',
+            text: 'Ocurrió un error al realizar la inscripción.',
+            icon: 'error',
+            confirmButtonColor: '#3085d6'
+          });
         }
       }
+    } else if (result.dismiss === Swal.DismissReason.cancel) {
+      Swal.fire({
+        title: 'Cancelado',
+        text: 'La inscripción ha sido cancelada.',
+        icon: 'error',
+        confirmButtonColor: '#3085d6'
+      });
     }
-  });
+  });  
 
   const handleLogout = () => {
       // Elimina el token de autenticación
