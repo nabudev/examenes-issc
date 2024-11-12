@@ -48,7 +48,6 @@ export function MisRegistros() {
         setInscripciones(prevInscripciones => 
           prevInscripciones.filter(inscripcion => inscripcion.id !== id)
         );
-        toast.success('Inscripción eliminada')
   };
 
   const openModal = (inscripcion) => {
@@ -126,23 +125,39 @@ export function MisRegistros() {
                       <TableCell>
                       <Button variant="outline" onClick={() => openModal(inscripcion)}>Modificar</Button>
                       <Button
-                            variant="outline"
-                            onClick={async () => {
-                              const result = await Swal.fire({
-                                title: 'Usted está por borrarse de una mesa. ¿Desea continuar?',
-                                icon: 'warning',
-                                showCancelButton: true,
-                                confirmButtonText: 'Sí, borrar',
-                                cancelButtonText: 'Cancelar',
-                              });
+                        variant="outline"
+                        onClick={async () => {
+                          const result = await Swal.fire({
+                            title: 'Usted está por borrarse de una mesa. ¿Desea continuar?',
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'Sí, borrar',
+                            cancelButtonText: 'Cancelar',
+                          });
 
-                              if (result.isConfirmed) {
-                                await handleDelete(inscripcion.id);
-                              }
-                            }}
-                          >
-                            Eliminar
+                          if (result.isConfirmed) {
+                            await handleDelete(inscripcion.id);
+                            Swal.fire({
+                              title: 'Eliminado',
+                              text: 'Te has borrado de la mesa con éxito.',
+                              icon: 'success',
+                              confirmButtonColor: '#3085d6'
+                            });
+                          } else if (result.dismiss === Swal.DismissReason.cancel) {
+                            Swal.fire({
+                              title: 'Cancelado',
+                              text: 'La acción de borrado ha sido cancelada.',
+                              icon: 'error',
+                              confirmButtonColor: '#3085d6'
+                            });
+                          }
+                        }}
+                      >
+                        Eliminar
                       </Button>
+
                         
                       </TableCell>
                       <TableCell>
