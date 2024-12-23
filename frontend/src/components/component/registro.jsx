@@ -97,7 +97,7 @@ export function Registro() {
       <header className="bg-primary text-primary-foreground py-4 px-6 sticky top-0 z-50">
         <div className="container mx-auto flex items-center justify-between">
           <Link href="#" className="text-xl font-bold" prefetch={false}>
-          Instituto Superior San Cristobal - Inscripción de exámenes finales
+          Instituto Superior San Cristobal - Inscripción de exámenes
           </Link>
           <nav className="flex items-center gap-4">
             <Link href="#mi-calendario" className="hover:underline" prefetch={false}>
