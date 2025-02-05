@@ -26,7 +26,9 @@ SECRET_KEY = 'django-insecure-tl0*58!4p!2ql%!kp#u@k(82@xc99pkx@df@)07u5qt&q!i8(9
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "https://examenes-issc.onrender.com",
+]
 
 
 # Application definition
