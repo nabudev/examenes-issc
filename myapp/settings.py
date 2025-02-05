@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-tl0*58!4p!2ql%!kp#u@k(82@xc99pkx@df@)07u5qt&q!i8(9
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    "https://examenes-issc.onrender.com",
+    'examenes-issc.onrender.com',
 ]
 
 
@@ -144,7 +144,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
-    "https://examenes-issc.onrender.com",
 ]
 
 REST_FRAMEWORK = {
