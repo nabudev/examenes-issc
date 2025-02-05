@@ -17,7 +17,7 @@ export function Login() {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-        const response = await axios.post('http://localhost:8000/autenticacion/login/', {
+        const response = await axios.post('http://examenes-issc.onrender.com/autenticacion/login/', {
             dni: dni,
             password: password
         });

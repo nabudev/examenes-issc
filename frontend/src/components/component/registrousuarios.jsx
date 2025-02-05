@@ -17,7 +17,7 @@ export function RegistroUsuarios() {
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-        const response = await axios.post('http://localhost:8000/autenticacion/register/', {
+        const response = await axios.post('http://examenes-issc.onrender.com/autenticacion/register/', {
             dni: dni,
             password: password
         });
